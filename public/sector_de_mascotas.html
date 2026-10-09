@@ -213,75 +213,9 @@
     <div class="mascotas-seccion" id="contenedor-mascotas">
         <!-- Aquí se cargan las tarjetas desde app.js -->
     </div>
-    <script>
-        // === FUNCIONAMIENTO AGREGADO — TU HTML SIGUE IGUAL ===
+    <script>       
+        listaDePublicidades();
         
-        // Nombres de razas
-        const nombresRazas = {
-            criollo: 'Criollo / Mestizo',
-            labrador: 'Labrador',
-            pastor_aleman: 'Pastor Alemán',
-            chihuahua: 'Chihuahua',
-            golden_retriever: 'Golden Retriever',
-            bulldog: 'Bulldog',
-            poodle: 'Caniche / Poodle',
-            dogo: 'Dogo Argentino',
-            beagle: 'Beagle',
-            otro: 'Otra raza'
-        };
-
-        // TU FUNCIÓN — MISMO NOMBRE, MISMA LLAMADA
-        function listaDePublicidades() {
-            const contenedor = document.getElementById('contenedor-mascotas');
-            
-            // Obtener datos guardados o usar ejemplos
-            let lista = JSON.parse(localStorage.getItem('reportesMascotas'));
-            
-            if (!lista || lista.length === 0) {
-                contenedor.innerHTML = '<p class="sin-resultados">🔍 No hay reportes registrados aún.</p>';
-                return;
-            }
-
-            contenedor.innerHTML = '';
-
-            lista.forEach(mascota => {
-                const razaNombre = nombresRazas[mascota.razaCode] || mascota.razaCode || 'No especificada';
-                const recompensaTexto = mascota.recompensa && mascota.recompensa > 0 
-                    ? `${mascota.recompensa} Bs` 
-                    : 'No especificada';
-                
-                // Imagen o imagen por defecto
-                const urlImagen = mascota.imagenPreview || mascota.imagen || 
-                    'https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?w=500';
-
-                const tarjeta = document.createElement('div');
-                tarjeta.className = 'mascota-tarjeta';
-                tarjeta.innerHTML = `
-                    <img src="${urlImagen}" alt="${mascota.mascotaNombre}" class="mascota-img" loading="lazy">
-                    <div class="mascota-info">
-                        <h3 class="mascota-nombre">${mascota.mascotaNombre}</h3>
-                        <div class="mascota-datos">
-                            <div class="dato-fila"><span class="icono">🐕</span><strong>Raza:</strong> ${razaNombre}</div>
-                            <div class="dato-fila"><span class="icono">📅</span><strong>Desapareció:</strong> ${mascota.fecha}</div>
-                            <div class="dato-fila"><span class="icono">📝</span>${mascota.mascotaDescripcion}</div>
-                            <div class="dato-fila"><span class="icono">💰</span><strong>Recompensa:</strong> ${recompensaTexto}</div>
-                            <div class="dato-fila"><span class="icono">👤</span><strong>Contacto:</strong> ${mascota.propietarioNombre} — ${mascota.propietarioTelefono}</div>
-                        </div>
-                        <a href="https://wa.me/${mascota.propietarioTelefono?.replace(/\D/g, '')}?text=Hola%2C%20vi%20el%20aviso%20de%20${encodeURIComponent(mascota.mascotaNombre)}%2C%20¿sigue%20desaparecida%3F" 
-                           target="_blank" 
-                           class="btn-contactar">
-                            💬 Contactar por WhatsApp
-                        </a>
-                    </div>
-                `;
-                contenedor.appendChild(tarjeta);
-            });
-        }
-
-        // Ejecutar tal como tu código lo hace
-        if (typeof listaDePublicidades === 'function') {
-            listaDePublicidades();
-        }
     </script>
 </body>
 </html>
